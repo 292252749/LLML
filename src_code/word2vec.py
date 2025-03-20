@@ -21,7 +21,7 @@ class VocabItem:
 class Vocab:
     def __init__(self, fi, min_count):
         vocab_items = []
-        vocab_hash = {}
+        vocab_hash = {} # {"token1": index1(len(vocab_items-1))), "token2": index2}
         word_count = 0
         fi = open(fi, 'r')
 
@@ -61,12 +61,10 @@ class Vocab:
         self.__sort(min_count)
 
         # assert self.word_count == sum([t.count for t in self.vocab_items]), 'word_count and sum of t.count do not agree'
-        print
-        'Total words in training file: %d' % self.word_count
-        print
-        'Total bytes in training file: %d' % self.bytes
-        print
-        'Vocab size: %d' % len(self)
+        print('Total words in training file: %d' % self.word_count)
+        print('Total bytes in training file: %d' % self.bytes)
+        print('Vocab size: %d' % len(self))
+
 
     def __getitem__(self, i):
         return self.vocab_items[i]
@@ -103,9 +101,8 @@ class Vocab:
         self.vocab_items = tmp
         self.vocab_hash = vocab_hash
 
-        print
-        print
-        'Unknown vocab size:', count_unk
+        print('Unknown vocab size:', count_unk)
+
 
     def indices(self, tokens):
         return [self.vocab_hash[token] if token in self else self.vocab_hash['<unk>'] for token in tokens]
